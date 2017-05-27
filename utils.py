@@ -47,21 +47,24 @@ def load_one_image(image):
     return img_AB
 
 def preprocess_A_and_B(img_A, img_B, load_size=286, fine_size=256, flip=True, is_test=False):
-    if is_test:
-        img_A = scipy.misc.imresize(img_A, [fine_size, fine_size])
-        img_B = scipy.misc.imresize(img_B, [fine_size, fine_size])
-    else:
-        img_A = scipy.misc.imresize(img_A, [load_size, load_size])
-        img_B = scipy.misc.imresize(img_B, [load_size, load_size])
-
-        h1 = int(np.ceil(np.random.uniform(1e-2, load_size-fine_size)))
-        w1 = int(np.ceil(np.random.uniform(1e-2, load_size-fine_size)))
-        img_A = img_A[h1:h1+fine_size, w1:w1+fine_size]
-        img_B = img_B[h1:h1+fine_size, w1:w1+fine_size]
-
-        if flip and np.random.random() > 0.5:
-            img_A = np.fliplr(img_A)
-            img_B = np.fliplr(img_B)
+    print img_A.shape
+    img_A = scipy.misc.imresize(img_A, [512, 640])
+    img_B = scipy.misc.imresize(img_B, [512, 640])
+#    if is_test:
+#        img_A = scipy.misc.imresize(img_A, [fine_size, fine_size])
+#        img_B = scipy.misc.imresize(img_B, [fine_size, fine_size])
+#    else:
+#        img_A = scipy.misc.imresize(img_A, [load_size, load_size])
+#        img_B = scipy.misc.imresize(img_B, [load_size, load_size])
+#
+#        h1 = int(np.ceil(np.random.uniform(1e-2, load_size-fine_size)))
+#        w1 = int(np.ceil(np.random.uniform(1e-2, load_size-fine_size)))
+#        img_A = img_A[h1:h1+fine_size, w1:w1+fine_size]
+#        img_B = img_B[h1:h1+fine_size, w1:w1+fine_size]
+#
+#        if flip and np.random.random() > 0.5:
+#            img_A = np.fliplr(img_A)
+#            img_B = np.fliplr(img_B)
 
     return img_A, img_B
 
@@ -107,6 +110,6 @@ def transform(image, npx=64, is_crop=True, resize_w=64):
     return np.array(cropped_image)/127.5 - 1.
 
 def inverse_transform(images):
-    return (images+1.)/2.
+    return (images)#+1.)/2.
 
 
